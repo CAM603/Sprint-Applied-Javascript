@@ -9,10 +9,10 @@
 //    <div class="tab">topic here</div>
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
 .then( response => {
-    response.data.topics.forEach(element => {
+    response.data.topics.forEach(topic => {
         // Add to DOM 
         let topics = document.querySelector('.topics');
-        topics.appendChild(tabMaker(element));
+        topics.appendChild(tabMaker(topic));
     });;
 })
 .catch( err => {
@@ -24,6 +24,16 @@ function tabMaker(topic) {
     let tab = document.createElement('div');
     tab.classList.add('tab');
     tab.textContent = topic;
+    tab.dataset.topic = topic;
+
+    tab.addEventListener('click', (event) => {
+        let topic = event.target.dataset.topic;
+        let card = document.querySelectorAll('.card');
+        card.forEach(el => {
+            el.style.display = 'flex';
+            el.dataset.topic === topic ? el : el.style.display = 'none';
+        })
+    })
 
     return tab;
 }

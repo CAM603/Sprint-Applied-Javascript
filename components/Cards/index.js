@@ -19,20 +19,29 @@
 // Create a card for each of the articles and add the card to the DOM.
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then( response => {
-    let obj = response.data.articles
-    let values = Object.values(obj);
-    for (let el of values) {
-        el.forEach(element => {
+    let obj = response.data.articles;
+
+    let entries = Object.entries(obj);
+    for (let [key, value] of entries) {
+        console.log(key, value);
+        value.forEach(obj => {
             let cardContainer = document.querySelector('.cards-container');
-            cardContainer.appendChild(cardMaker(element))
-        });
+            cardContainer.appendChild(cardMaker(obj, key));
+        })
     }
+    // let values = Object.values(obj);
+    // for (let el of values) {
+    //     el.forEach(obj => {
+    //         let cardContainer = document.querySelector('.cards-container');
+    //         cardContainer.appendChild(cardMaker(obj))
+    //     });
+    // }
 })
 .catch( err => {
     console.log(err);
 })
 
-function cardMaker(obj) {
+function cardMaker(obj, topic) {
     // Create elements
     let card = document.createElement('div');
     let headLine = document.createElement('div');
@@ -45,6 +54,12 @@ function cardMaker(obj) {
     headLine.classList.add('headline');
     author.classList.add('author');
     imgContainer.classList.add('img-container');
+
+    if (topic === 'node') {
+        card.dataset.topic = 'node.js';
+    } else {
+        card.dataset.topic = topic;
+    }
     // Add text content and img src
     headLine.textContent = obj.headline;
     img.src = obj.authorPhoto;
