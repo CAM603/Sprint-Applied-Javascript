@@ -20,8 +20,13 @@
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then( response => {
     let obj = response.data.articles
-    let entries = Object.entries(obj);
-    console.log(entries)
+    let values = Object.values(obj);
+    for (let el of values) {
+        el.forEach(element => {
+            let cardContainer = document.querySelector('.cards-container');
+            cardContainer.appendChild(cardMaker(element))
+        });
+    }
 })
 .catch( err => {
     console.log(err);
@@ -53,6 +58,3 @@ function cardMaker(obj) {
 
     return card
 }
-
-// let cardContainer = document.querySelector('.cards-container');
-// cardContainer.appendChild(cardMaker(obj));
