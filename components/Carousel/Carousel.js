@@ -49,6 +49,7 @@ function carouselMaker() {
 
   let index = 0;
   let imgArr = [img1, img2, img3, img4];
+  imgArr[index].style.display = 'inline-block';
   
   leftButton.addEventListener('click', () => {
     if (index === 0) {
