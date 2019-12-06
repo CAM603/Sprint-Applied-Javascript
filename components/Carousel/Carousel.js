@@ -53,7 +53,8 @@ function carouselMaker() {
   
   leftButton.addEventListener('click', () => {
     if (index === 0) {
-      index = 0;
+      imgArr[index].style.display = 'none';
+      index = imgArr.length - 1;
       imgArr[index].style.display = 'inline-block';
     } else {
       imgArr[index].style.display = 'none';
@@ -63,7 +64,8 @@ function carouselMaker() {
   })
   rightButton.addEventListener('click', () => {
     if (index === 3) {
-      index = 3;
+      imgArr[index].style.display = 'none';
+      index = 0;
       imgArr[index].style.display = 'inline-block';
     } else {
       imgArr[index].style.display = 'none';
@@ -71,7 +73,6 @@ function carouselMaker() {
       imgArr[index].style.display = 'inline-block';
     }
   })
-
   return carousel;
 }
 
